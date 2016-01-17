@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/bacon.atom.svg)](http://badge.fury.io/js/bacon.atom)
+
 An alternative to [Bacon.Model](https://github.com/baconjs/bacon.model).
 
 ## Usage
