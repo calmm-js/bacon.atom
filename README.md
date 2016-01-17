@@ -11,3 +11,6 @@ import Atom from "bacon.atom"
 const model = Atom({x: 1})
 const x = model.lens(R.lensProp("x"))
 ```
+
+`atom.lens(...)` does not create a cycle; the object returned by `lens` can be
+garbage collected.
