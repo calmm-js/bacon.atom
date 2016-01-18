@@ -14,3 +14,7 @@ const x = model.lens(R.lensProp("x"))
 
 `atom.lens(...)` does not create a cycle; the object returned by `lens` can be
 garbage collected.
+
+Aside from having `modify`, `set` and `lens` methods, an Atom is like a Bacon
+property and
+[has no "get" method](https://github.com/baconjs/bacon.js/#latest-value-of-property-or-eventstream).
