@@ -16,9 +16,13 @@ const x = model.lens(R.lensProp("x"))
 garbage collected.
 
 Aside from having `modify`, `set` and `lens` methods, an Atom is like a Bacon
-property and
-[has no "get" method](https://github.com/baconjs/bacon.js/#latest-value-of-property-or-eventstream).
+property.  Furthermore, because an Atom effectively always has a value, it is
+possible to get the value of an Atom synchronously.  So, for convenience an Atom
+also has a slow, but synchronous, `get` method.  Use of `get` is discouraged:
+prefer to depend on an atom as you would
+[with any other observable](https://github.com/baconjs/bacon.js/#latest-value-of-property-or-eventstream)
+whenever possible.
 
-Duplicates are skipped according to Ramda's `equals` function by default.  You
-can specify the equality predicate as an optional second argument to
-`atom.lens(..., eq)` and `Atom(..., eq)`.
+An Atom skips duplicate values according to Ramda's `equals` function by
+default.  You can specify the equality predicate as an optional second argument
+to `atom.lens(..., eq)` and `Atom(..., eq)`.

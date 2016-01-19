@@ -1,6 +1,12 @@
 import Bacon from "baconjs"
 import R     from "ramda"
 
+function get() {
+  let result
+  this.take(1).onValue(value => result = value)
+  return result
+}
+
 function set(value) { this.modify(() => value) }
 
 function modifyMap(x2x) { this.parent.modify(R.over(this.mapper, x2x)) }
@@ -11,6 +17,7 @@ function lens(l, eq = R.equals) {
   atom.parent = this
   atom.mapper = l
   atom.modify = modifyMap
+  atom.get = get
   atom.set = set
   atom.lens = lens
 
@@ -29,6 +36,7 @@ export default (value, eq = R.equals) => {
 
   atom.bus = bus
   atom.modify = modifyBus
+  atom.get = get
   atom.set = set
   atom.lens = lens
 
