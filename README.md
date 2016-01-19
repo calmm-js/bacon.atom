@@ -18,3 +18,7 @@ garbage collected.
 Aside from having `modify`, `set` and `lens` methods, an Atom is like a Bacon
 property and
 [has no "get" method](https://github.com/baconjs/bacon.js/#latest-value-of-property-or-eventstream).
+
+Duplicates are skipped according to Ramda's `equals` function by default.  You
+can specify the equality predicate as an optional second argument to
+`atom.lens(..., eq)` and `Atom(..., eq)`.

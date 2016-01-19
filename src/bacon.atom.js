@@ -5,8 +5,8 @@ function set(value) { this.modify(() => value) }
 
 function modifyMap(x2x) { this.parent.modify(R.over(this.mapper, x2x)) }
 
-function lens(l) {
-  const atom = this.map(R.view(l))
+function lens(l, eq = R.equals) {
+  const atom = this.map(R.view(l)).skipDuplicates(eq)
 
   atom.parent = this
   atom.mapper = l
@@ -19,9 +19,9 @@ function lens(l) {
 
 function modifyBus(x2x) { this.bus.push(x2x) }
 
-export default value => {
+export default (value, eq = R.equals) => {
   const bus = Bacon.Bus()
-  const atom = bus.scan(value, (value, fn) => fn(value))
+  const atom = bus.scan(value, (value, fn) => fn(value)).skipDuplicates(eq)
 
   atom.bus = bus
   atom.modify = modifyBus
