@@ -19,9 +19,13 @@ function lens(l, eq = R.equals) {
 
 function modifyBus(x2x) { this.bus.push(x2x) }
 
+function ignore() {}
+
 export default (value, eq = R.equals) => {
   const bus = Bacon.Bus()
   const atom = bus.scan(value, (value, fn) => fn(value)).skipDuplicates(eq)
+
+  atom.subscribe(ignore)
 
   atom.bus = bus
   atom.modify = modifyBus
