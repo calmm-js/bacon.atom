@@ -1,6 +1,6 @@
 {
   "name": "bacon.atom",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Alternative to Bacon.Model",
   "main": "lib/bacon.atom.js",
   "scripts": {
