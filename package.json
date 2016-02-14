@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/polytypic/bacon.atom.git"
+    "url": "git+https://github.com/dirty-js/bacon.atom.git"
   },
   "keywords": [
     "bacon",
@@ -20,9 +20,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/polytypic/bacon.atom/issues"
+    "url": "https://github.com/dirty-js/bacon.atom/issues"
   },
-  "homepage": "https://github.com/polytypic/bacon.atom#readme",
+  "homepage": "https://github.com/dirty-js/bacon.atom#readme",
   "dependencies": {
     "baconjs": "^0.7.83",
     "ramda": "^0.19.1"
