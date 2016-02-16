@@ -20,6 +20,7 @@ function lens(l, ...ls) {
   atom.get = getLens
   atom.set = set
   atom.lens = lens
+  atom.view = lens
 
   return atom
 }
@@ -39,6 +40,7 @@ export default value => {
   atom.get = getRoot
   atom.set = set
   atom.lens = lens
+  atom.view = lens
 
   return atom
 }
