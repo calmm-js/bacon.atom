@@ -1,28 +1,49 @@
 [![npm version](https://badge.fury.io/js/bacon.atom.svg)](http://badge.fury.io/js/bacon.atom)
 
-An alternative to [Bacon.Model](https://github.com/baconjs/bacon.model).
+A garbage collectable alternative to
+[Bacon.Model](https://github.com/baconjs/bacon.model).
 
-## Usage
+## Reference
 
-```jsx
-import R    from "ramda"
+```js
 import Atom from "bacon.atom"
-...
-const model = Atom({x: 1})
-const x = model.lens(R.lensProp("x"))
 ```
 
-`atom.lens(...)` does not create a cycle; the object returned by `lens` can be
-garbage collected.
+### Atom(initialValue)
 
-Aside from having `modify`, `set` and `lens` methods, an Atom is like a Bacon
-property.  Furthermore, because an Atom effectively always has a value, it is
-possible to get the value of an Atom synchronously.  So, for convenience, an
-Atom also has a slow, but synchronous, `get` method.  Use of `get` is
-discouraged: prefer to depend on an atom as you would
-[with any other observable](https://github.com/baconjs/bacon.js/#latest-value-of-property-or-eventstream)
-whenever possible.
+Creates a new atom with the given initial value.  An atom is a modifiable Bacon
+[property](https://github.com/baconjs/bacon.js#property).  Atoms (and lensed
+atoms) implicitly skip duplicates using Ramda's
+[equals](http://ramdajs.com/0.19.0/docs/#equals) function.
 
-An Atom skips duplicate values according to Ramda's `equals` function by
-default.  You can specify the equality predicate as an optional second argument
-to `atom.lens(..., eq)` and `Atom(..., eq)`.
+### atom.get()
+
+A slow operation to synchronously get the current value of the atom.  Use of
+`get` is discouraged: prefer to depend on an atom as you would with ordinary
+Bacon properties.
+
+### atom.lens(l, ...ls)
+
+Creates a new lensed atom with the given path from the original atom.
+Modifications to the lensed atom are reflected in the original atom and vice
+versa.
+
+The lens can be any Ramda compatible
+[lens](http://ramdajs.com/0.19.0/docs/#lens), but the lenses on the given path
+are implicitly composed and lifted as
+[partial lenses](https://github.com/dirty-js/partial.lenses/).
+
+### atom.modify(currentValue => newValue)
+
+Applies the given function to the current value of the atom and replaces the
+value of the atom with the new value returned by the function.
+
+### atom.set(value)
+
+`atom.set(value)` is equivalent to `atom.modify(() => value)` and is provided
+for convenience.
+
+### atom.view(l, ...ls)
+
+Creates a new view with the given path from the original atom.  Changes to the
+original atom are reflected in the view.

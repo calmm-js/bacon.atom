@@ -1,18 +1,21 @@
 import Bacon from "baconjs"
+import L     from "partial.lenses"
 import R     from "ramda"
 
 function ignore() {}
 
 function set(value) { this.modify(() => value) }
 
-function getLens() { return R.view(this.mapper, this.parent.get()) }
-function modifyLens(x2x) { this.parent.modify(R.over(this.mapper, x2x)) }
+function getLens() { return L.view(this.mapper, this.parent.get()) }
+function modifyLens(x2x) { this.parent.modify(L.over(this.mapper, x2x)) }
 
-function lens(l, eq = R.equals) {
-  const atom = this.map(R.view(l)).skipDuplicates(eq)
+function lens(l, ...ls) {
+  const mapper = ls.length === 0 ? l : L(l, ...ls)
+
+  const atom = this.map(L.view(mapper)).skipDuplicates(R.equals)
 
   atom.parent = this
-  atom.mapper = l
+  atom.mapper = mapper
   atom.modify = modifyLens
   atom.get = getLens
   atom.set = set
@@ -24,9 +27,9 @@ function lens(l, eq = R.equals) {
 function getRoot() { return this.value }
 function modifyRoot(x2x) { this.bus.push(x2x) }
 
-export default (value, eq = R.equals) => {
+export default value => {
   const bus = Bacon.Bus()
-  const atom = bus.scan(value, (v, fn) => atom.value = fn(v)).skipDuplicates(eq)
+  const atom = bus.scan(value, (v, fn) => atom.value = fn(v)).skipDuplicates(R.equals)
 
   atom.subscribe(ignore)
 
