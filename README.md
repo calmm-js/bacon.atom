@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/bacon.atom.svg)](http://badge.fury.io/js/bacon.atom)
+[![npm version](https://badge.fury.io/js/bacon.atom.svg)](http://badge.fury.io/js/bacon.atom) ![](https://david-dm.org/dirty-js/bacon.atom.svg)
 
 A garbage collectable alternative to
 [Bacon.Model](https://github.com/baconjs/bacon.model).
