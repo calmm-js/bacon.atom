@@ -25,16 +25,16 @@
   "homepage": "https://github.com/dirty-js/bacon.atom#readme",
   "dependencies": {
     "baconjs": "^0.7.83",
-    "partial.lenses": "^0.6.0",
+    "partial.lenses": "^1.0.0",
     "ramda": "^0.19.1"
   },
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.5.1",
-    "babel-eslint": "^4.1.8",
+    "babel-eslint": "^5.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.5.2",
     "babel-preset-es2015": "^6.5.0",
-    "eslint": "^2.1.0",
+    "eslint": "^2.2.0",
     "mocha": "^2.4.5"
   }
 }
