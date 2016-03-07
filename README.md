@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/bacon.atom.svg)](http://badge.fury.io/js/bacon.atom) [![](https://david-dm.org/dirty-js/bacon.atom.svg)](https://david-dm.org/dirty-js/bacon.atom)
+[![npm version](https://badge.fury.io/js/bacon.atom.svg)](http://badge.fury.io/js/bacon.atom) [![](https://david-dm.org/calmm-js/bacon.atom.svg)](https://david-dm.org/calmm-js/bacon.atom)
 
 A garbage collectable alternative to
 [Bacon.Model](https://github.com/baconjs/bacon.model).
@@ -31,7 +31,7 @@ versa.
 The lens can be any Ramda compatible
 [lens](http://ramdajs.com/0.19.0/docs/#lens), but the lenses on the given path
 are implicitly composed and lifted as
-[partial lenses](https://github.com/dirty-js/partial.lenses/).
+[partial lenses](https://github.com/calmm-js/partial.lenses/).
 
 ### atom.modify(currentValue => newValue)
 
