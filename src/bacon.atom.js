@@ -1,18 +1,18 @@
+import * as R    from "ramda"
 import Bacon     from "baconjs"
 import P, * as L from "partial.lenses"
-import R         from "ramda"
 
 function ignore() {}
 
 function set(value) { this.modify(() => value) }
 
-function getLens() { return L.view(this.mapper, this.parent.get()) }
-function modifyLens(x2x) { this.parent.modify(L.over(this.mapper, x2x)) }
+function getLens() { return L.get(this.mapper, this.parent.get()) }
+function modifyLens(x2x) { this.parent.modify(L.modify(this.mapper, x2x)) }
 
 function lens(l, ...ls) {
-  const mapper = ls.length === 0 ? l : P(l, ...ls)
+  const mapper = P(l, ...ls)
 
-  const atom = this.map(L.view(mapper)).skipDuplicates(R.equals)
+  const atom = this.map(L.get(mapper)).skipDuplicates(R.equals)
 
   atom.parent = this
   atom.mapper = mapper
