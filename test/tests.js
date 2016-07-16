@@ -1,5 +1,5 @@
-import Atom  from "../src/bacon.atom"
-import R     from "ramda"
+import Atom   from "../src/bacon.atom"
+import * as R from "ramda"
 
 function show(x) {
   switch (typeof x) {
@@ -33,7 +33,7 @@ describe("Atom", () => {
 
   testEq('y.set({y: 3}); y.get()', () => {y.set({y: 3}); return y.get()}, {y: 3})
 
-  const z = y.lens(R.lensProp("y"))
+  const z = y.lens("y")
 
   testEq('const z = y.lens("y") ; z.get()', () => z.get(), 3)
 

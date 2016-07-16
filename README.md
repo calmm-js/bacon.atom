@@ -24,14 +24,10 @@ Bacon properties.
 
 ### atom.lens(l, ...ls)
 
-Creates a new lensed atom with the given path from the original atom.
-Modifications to the lensed atom are reflected in the original atom and vice
-versa.
-
-The lens can be any Ramda compatible
-[lens](http://ramdajs.com/0.19.0/docs/#lens), but the lenses on the given path
-are implicitly composed and lifted as
-[partial lenses](https://github.com/calmm-js/partial.lenses/).
+Creates a new lensed atom with the given path of
+[partial lenses](https://github.com/calmm-js/partial.lenses/) from the original
+atom.  Modifications to the lensed atom are reflected in the original atom and
+vice versa.
 
 ### atom.modify(currentValue => newValue)
 
