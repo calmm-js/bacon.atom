@@ -33,9 +33,15 @@ describe("Atom", () => {
 
   testEq('y.set({y: 3}); y.get()', () => {y.set({y: 3}); return y.get()}, {y: 3})
 
-  const z = y.lens("y")
+  const z1 = y.lens("y")
 
-  testEq('const z = y.lens("y") ; z.get()', () => z.get(), 3)
+  testEq('const z1 = y.lens("y") ; z1.get()', () => z1.get(), 3)
 
-  testEq('z.set(4) ; z.get()', () => {z.set(4) ; z.get() ; return z.get()}, 4)
+  testEq('z1.set(4) ; z1.get()', () => {z1.set(4) ; z1.get() ; return z1.get()}, 4)
+
+  const z2 = xy.lens("x", "y")
+
+  testEq('const z2 = xy.lens("x", "y") ; z2.get()', () => z2.get(), 4)
+
+  testEq('z2.set(3) ; z2.get()', () => {z2.set(3) ; z2.get() ; return z2.get()}, 3)
 })
