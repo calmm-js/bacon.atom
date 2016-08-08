@@ -1,6 +1,6 @@
 {
   "name": "bacon.atom",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "description": "A garbage collectable alternative to Bacon.Model",
   "main": "lib/bacon.atom.js",
   "scripts": {
@@ -24,18 +24,18 @@
   },
   "homepage": "https://github.com/calmm-js/bacon.atom#readme",
   "dependencies": {
-    "baconjs": "^0.7.84",
+    "baconjs": "^0.7.85",
     "partial.lenses": ">=2.2.0 <4.0.0",
-    "ramda": ">=0.20.1 <0.22.0"
+    "ramda": ">=0.20.1 <0.23.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.10.1",
+    "babel-cli": "^6.11.4",
     "babel-eslint": "^6.1.2",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.10.3",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-register": "^6.9.0",
-    "eslint": "^3.1.0",
-    "mocha": "^2.5.3",
-    "nyc": "^7.0.0"
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.11.5",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-register": "^6.11.6",
+    "eslint": "^3.2.2",
+    "mocha": "^3.0.1",
+    "nyc": "^7.1.0"
   }
 }
