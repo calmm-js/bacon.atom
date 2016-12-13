@@ -11,10 +11,10 @@ import Atom from "bacon.atom"
 
 ### Atom(initialValue)
 
-Creates a new atom with the given initial value.  An atom is a modifiable Bacon
-[property](https://github.com/baconjs/bacon.js#property).  Atoms (and lensed
-atoms) implicitly skip duplicates using Ramda's
-[equals](http://ramdajs.com/0.19.0/docs/#equals) function.
+Creates a new atom with the given initial value.  An atom is a modifiable
+Bacon [property](https://github.com/baconjs/bacon.js#property).  Atoms (and
+lensed atoms) implicitly skip duplicates using an acyclic structural equality
+predicate.
 
 ### atom.get()
 
