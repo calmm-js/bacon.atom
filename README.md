@@ -22,7 +22,7 @@ A slow operation to synchronously get the current value of the atom.  Use of
 `get` is discouraged: prefer to depend on an atom as you would with ordinary
 Bacon properties.
 
-### atom.lens(l, ...ls)
+### atom.view(...ls)
 
 Creates a new lensed atom with the given path of
 [partial lenses](https://github.com/calmm-js/partial.lenses/) from the original
@@ -38,8 +38,3 @@ value of the atom with the new value returned by the function.
 
 `atom.set(value)` is equivalent to `atom.modify(() => value)` and is provided
 for convenience.
-
-### atom.view(l, ...ls)
-
-Creates a new view with the given path from the original atom.  Changes to the
-original atom are reflected in the view.
