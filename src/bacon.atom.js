@@ -8,7 +8,10 @@ function getLens() { return get(this.mapper, this.parent.get()) }
 function modifyLens(x2x) { this.parent.modify(modify(this.mapper, x2x)) }
 
 function lens(...ls) {
-  console.warn("The `lens` method is deprecated.  Use the `view` method.")
+  if (!lens.warned) {
+    lens.warned = 1
+    console.warn("The `lens` method is deprecated.  Use the `view` method.")
+  }
   return this.view(...ls)
 }
 

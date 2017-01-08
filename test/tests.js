@@ -23,7 +23,7 @@ describe("Atom", () => {
 
   testEq('const xy = Atom({x: {y: 1}}); xy.get()', () => xy.get(), {x: {y: 1}})
 
-  const y = xy.view("x")
+  const y = xy.lens("x")
 
   testEq('xy.set({x: {y: 2}}) ; xy.get()',
          () => {xy.set({x: {y: 2}}) ; return xy.get()},
