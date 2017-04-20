@@ -1,12 +1,17 @@
 {
   "name": "bacon.atom",
-  "version": "4.0.6",
+  "version": "4.0.7",
   "description": "A garbage collectable alternative to Bacon.Model",
-  "main": "lib/bacon.atom.js",
+  "module": "dist/bacon.atom.es.js",
+  "main": "dist/bacon.atom.cjs.js",
   "scripts": {
-    "dist": "babel src --source-maps inline --out-dir lib",
+    "dist": "npm run dist:umd & npm run dist:umd.min & npm run dist:es & npm run dist:cjs & wait",
+    "dist:cjs": "    NODE_ENV=           rollup -c -n bacon.atom -i src/bacon.atom.js -f cjs -o dist/bacon.atom.cjs.js",
+    "dist:es": "     NODE_ENV=           rollup -c -n bacon.atom -i src/bacon.atom.js -f es  -o dist/bacon.atom.es.js",
+    "dist:umd": "    NODE_ENV=dev        rollup -c -n bacon.atom -i src/bacon.atom.js -f umd -o dist/bacon.atom.js",
+    "dist:umd.min": "NODE_ENV=production rollup -c -n bacon.atom -i src/bacon.atom.js -f umd -o dist/bacon.atom.min.js",
     "lint": "eslint src test",
-    "prepublish": "npm run lint && npm run test && npm run dist",
+    "prepublish": "npm run lint && npm run dist && npm run test",
     "test": "nyc mocha"
   },
   "repository": {
@@ -37,6 +42,11 @@
     "eslint": "^3.19.0",
     "mocha": "^3.2.0",
     "nyc": "^10.2.0",
-    "ramda": "^0.23.0"
+    "ramda": "^0.23.0",
+    "rollup": "^0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-plugin-uglify": "^1.0.1"
   }
 }

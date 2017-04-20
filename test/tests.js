@@ -1,4 +1,4 @@
-import Atom   from "../src/bacon.atom"
+import Atom   from "../dist/bacon.atom.cjs"
 import * as R from "ramda"
 
 function show(x) {
