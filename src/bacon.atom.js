@@ -7,15 +7,26 @@ function set(value) { this.modify(() => value) }
 function getLens() { return get(this.mapper, this.parent.get()) }
 function modifyLens(x2x) { this.parent.modify(modify(this.mapper, x2x)) }
 
-function lens(...ls) {
-  if (!lens.warned) {
-    lens.warned = 1
-    console.warn("The `lens` method is deprecated.  Use the `view` method.")
+const header = "bacon.atom: "
+
+function warn(f, m) {
+  if (!f.warned) {
+    f.warned = 1
+    console.warn(header + m)
   }
+}
+
+function lens(...ls) {
+  warn(lens, "The `lens` method is deprecated.  Use the `view` method.")
   return this.view(...ls)
 }
 
 function view(...ls) {
+  if (process.env.NODE_ENV !== "production") {
+    if (ls.length !== 1)
+      warn(view, "In the next major version the `view` method will no longer take multiple arguments to compose as a lens.  Instead of `atom.view(...ls)` write `atom.view([...ls])`.")
+  }
+
   const mapper = compose(...ls)
 
   const atom = this.map(get(mapper)).skipDuplicates(acyclicEqualsU)

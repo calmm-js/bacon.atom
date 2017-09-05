@@ -22,12 +22,12 @@ A slow operation to synchronously get the current value of the atom.  Use of
 `get` is discouraged: prefer to depend on an atom as you would with ordinary
 Bacon properties.
 
-### atom.view(...ls)
+### atom.view(lens)
 
-Creates a new lensed atom with the given path of
-[partial lenses](https://github.com/calmm-js/partial.lenses/) from the original
-atom.  Modifications to the lensed atom are reflected in the original atom and
-vice versa.
+Creates a new lensed atom with the [partial
+lens](https://github.com/calmm-js/partial.lenses/) from the original atom.
+Modifications to the lensed atom are reflected in the original atom and vice
+versa.
 
 ### atom.modify(currentValue => newValue)
 

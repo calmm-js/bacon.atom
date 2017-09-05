@@ -17,15 +17,25 @@ function modifyLens(x2x) {
   this.parent.modify(partial_lenses.modify(this.mapper, x2x));
 }
 
-function lens() {
-  if (!lens.warned) {
-    lens.warned = 1;
-    console.warn("The `lens` method is deprecated.  Use the `view` method.");
+var header = "bacon.atom: ";
+
+function warn(f, m) {
+  if (!f.warned) {
+    f.warned = 1;
+    console.warn(header + m);
   }
+}
+
+function lens() {
+  warn(lens, "The `lens` method is deprecated.  Use the `view` method.");
   return this.view.apply(this, arguments);
 }
 
 function view() {
+  if (process.env.NODE_ENV !== "production") {
+    if (arguments.length !== 1) warn(view, "In the next major version the `view` method will no longer take multiple arguments to compose as a lens.  Instead of `atom.view(...ls)` write `atom.view([...ls])`.");
+  }
+
   var mapper = partial_lenses.compose.apply(undefined, arguments);
 
   var atom = this.map(partial_lenses.get(mapper)).skipDuplicates(infestines.acyclicEqualsU);
