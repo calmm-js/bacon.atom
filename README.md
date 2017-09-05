@@ -33,6 +33,11 @@ lens](https://github.com/calmm-js/partial.lenses/) from the original atom.
 Modifications to the lensed atom are reflected in the original atom and vice
 versa.
 
+As of version 5.0.0 the `lens` is also allowed to be an observable that produces
+a lens.  In that case the lens is not obtained from the observable until after
+the lensed atom has been subscribed to and before that `get` returns `undefined`
+and `modify` and `set` do nothing.
+
 ### atom.modify(currentValue => newValue)
 
 Applies the given function to the current value of the atom and replaces the

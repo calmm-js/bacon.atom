@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.0
+
+Removed the `lens` method and changed `view` to take exactly one argument.
+These functionalities were previously deprecated.
+
+Enhanced the `view` method to allow the argument lens to be an observable.
+
 ## 4.0.8
 
 The `view` method now gives a warning if you pass it any other number of
