@@ -1,51 +1,38 @@
-import { compose, get, modify } from 'partial.lenses';
-import { acyclicEqualsU, id } from 'infestines';
-import { Bus } from 'baconjs';
+import { get, modify } from 'partial.lenses';
+import { always, id, identicalU } from 'infestines';
+import { Bus, Observable, combineWith } from 'baconjs';
 
 function set(value) {
-  this.modify(function () {
-    return value;
-  });
+  this.modify(always(value));
 }
 
 function getLens() {
-  return get(this.mapper, this.parent.get());
+  var lens = this.lens;
+  if (void 0 !== lens) return get(lens, this.parent.get());
 }
+
 function modifyLens(x2x) {
-  this.parent.modify(modify(this.mapper, x2x));
+  var lens = this.lens;
+  if (void 0 !== lens) this.parent.modify(modify(lens, x2x));
 }
 
-var header = "bacon.atom: ";
+function view(lens) {
+  var atom = this;
 
-function warn(f, m) {
-  if (!f.warned) {
-    f.warned = 1;
-    console.warn(header + m);
+  if (lens instanceof Observable) {
+    atom = combineWith(lens, atom, function (lens, data) {
+      return get(atom.lens = lens, data);
+    });
+  } else {
+    atom = atom.map(get(lens)).skipDuplicates(identicalU);
+    atom.lens = lens;
   }
-}
-
-function lens() {
-  warn(lens, "The `lens` method is deprecated.  Use the `view` method.");
-  return this.view.apply(this, arguments);
-}
-
-function view() {
-  if (process.env.NODE_ENV !== "production") {
-    if (arguments.length !== 1) warn(view, "In the next major version the `view` method will no longer take multiple arguments to compose as a lens.  Instead of `atom.view(...ls)` write `atom.view([...ls])`.");
-  }
-
-  var mapper = compose.apply(undefined, arguments);
-
-  var atom = this.map(get(mapper)).skipDuplicates(acyclicEqualsU);
 
   atom.parent = this;
-  atom.mapper = mapper;
   atom.modify = modifyLens;
   atom.get = getLens;
   atom.set = set;
-  atom.lens = process.env.NODE_ENV === "production" ? view : lens;
   atom.view = view;
-
   return atom;
 }
 
@@ -60,7 +47,7 @@ var bacon_atom = (function (value) {
   var bus = Bus();
   var atom = bus.scan(value, function (v, fn) {
     return atom.value = fn(v);
-  }).skipDuplicates(acyclicEqualsU);
+  }).skipDuplicates(identicalU);
 
   atom.subscribe(id);
 
@@ -69,7 +56,6 @@ var bacon_atom = (function (value) {
   atom.modify = modifyRoot;
   atom.get = getRoot;
   atom.set = set;
-  atom.lens = process.env.NODE_ENV === "production" ? view : lens;
   atom.view = view;
 
   return atom;
