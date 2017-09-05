@@ -1,8 +1,8 @@
 import {get, modify} from "partial.lenses"
-import {acyclicEqualsU, id} from "infestines"
+import {always, id, identicalU} from "infestines"
 import {Bus, Observable, combineWith} from "baconjs"
 
-function set(value) { this.modify(() => value) }
+function set(value) { this.modify(always(value)) }
 
 function getLens() {
   const lens = this.lens
@@ -17,12 +17,12 @@ function modifyLens(x2x) {
 }
 
 function view(lens) {
-  let atom
+  let atom = this
 
   if (lens instanceof Observable) {
-    atom = combineWith(lens, this, (lens, data) => get(atom.lens = lens, data))
+    atom = combineWith(lens, atom, (lens, data) => get(atom.lens = lens, data))
   } else {
-    atom = this.map(get(lens)).skipDuplicates(acyclicEqualsU)
+    atom = atom.map(get(lens)).skipDuplicates(identicalU)
     atom.lens = lens
   }
 
@@ -39,7 +39,7 @@ function modifyRoot(x2x) { this.bus.push(x2x) }
 
 export default value => {
   const bus = Bus()
-  const atom = bus.scan(value, (v, fn) => atom.value = fn(v)).skipDuplicates(acyclicEqualsU)
+  const atom = bus.scan(value, (v, fn) => atom.value = fn(v)).skipDuplicates(identicalU)
 
   atom.subscribe(id)
 

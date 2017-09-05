@@ -7,6 +7,24 @@ These functionalities were previously deprecated.
 
 Enhanced the `view` method to allow the argument lens to be an observable.
 
+Previously duplicates were skipped with a structural acyclic equality predicate.
+This is ideal in the sense that unnecessary updates are eliminated.  Now
+duplicates are skipped with the equivalent of `Object.is`.  The `kefir.atom`
+library made this change earlier and it has worked well in practise.  There are
+two main reasons for the change:
+
+* Structural equality is slowish, because it potentially needs to examine the
+  whole object tree.  When either dealing with a large number of properties or
+  with properties that are large objects, it can become a bottleneck.
+
+* In practise, when embedding properties to VDOM that are computed with lenses
+  from a state atom, `Object.is` is enough to eliminate almost all unnecessary
+  updates and can be implemented so that it works several orders magnitude
+  faster a structural equality.
+
+In cases where you really want a more thorough equality check, you can
+explicitly use Bacon's `skipDuplicates`.
+
 ## 4.0.8
 
 The `view` method now gives a warning if you pass it any other number of
