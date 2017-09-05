@@ -1,4 +1,8 @@
-[![npm version](https://badge.fury.io/js/bacon.atom.svg)](http://badge.fury.io/js/bacon.atom) [![Build Status](https://travis-ci.org/calmm-js/bacon.atom.svg?branch=master)](https://travis-ci.org/calmm-js/bacon.atom) [![](https://david-dm.org/calmm-js/bacon.atom.svg)](https://david-dm.org/calmm-js/bacon.atom) [![](https://david-dm.org/calmm-js/bacon.atom/dev-status.svg)](https://david-dm.org/calmm-js/bacon.atom?type=dev)
+[![npm version](https://badge.fury.io/js/bacon.atom.svg)](http://badge.fury.io/js/bacon.atom)
+[![Build Status](https://travis-ci.org/calmm-js/bacon.atom.svg?branch=master)](https://travis-ci.org/calmm-js/bacon.atom)
+[![Code Coverage](https://img.shields.io/codecov/c/github/calmm-js/bacon.atom/master.svg)](https://codecov.io/github/calmm-js/bacon.atom?branch=master)
+[![](https://david-dm.org/calmm-js/bacon.atom.svg)](https://david-dm.org/calmm-js/bacon.atom)
+[![](https://david-dm.org/calmm-js/bacon.atom/dev-status.svg)](https://david-dm.org/calmm-js/bacon.atom?type=dev)
 
 A garbage collectable alternative to
 [Bacon.Model](https://github.com/baconjs/bacon.model).
