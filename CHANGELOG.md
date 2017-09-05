@@ -20,7 +20,7 @@ two main reasons for the change:
 * In practise, when embedding properties to VDOM that are computed with lenses
   from a state atom, `Object.is` is enough to eliminate almost all unnecessary
   updates and can be implemented so that it works several orders magnitude
-  faster a structural equality.
+  faster than structural equality.
 
 In cases where you really want a more thorough equality check, you can
 explicitly use Bacon's `skipDuplicates`.
