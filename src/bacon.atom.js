@@ -1,44 +1,36 @@
-import {compose, get, modify} from "partial.lenses"
-import {acyclicEqualsU, id} from "infestines"
-import {Bus} from "baconjs"
+import {get, modify} from "partial.lenses"
+import {always, id, identicalU} from "infestines"
+import {Bus, Observable, combineWith} from "baconjs"
 
-function set(value) { this.modify(() => value) }
+function set(value) { this.modify(always(value)) }
 
-function getLens() { return get(this.mapper, this.parent.get()) }
-function modifyLens(x2x) { this.parent.modify(modify(this.mapper, x2x)) }
-
-const header = "bacon.atom: "
-
-function warn(f, m) {
-  if (!f.warned) {
-    f.warned = 1
-    console.warn(header + m)
-  }
+function getLens() {
+  const lens = this.lens
+  if (void 0 !== lens)
+    return get(lens, this.parent.get())
 }
 
-function lens(...ls) {
-  warn(lens, "The `lens` method is deprecated.  Use the `view` method.")
-  return this.view(...ls)
+function modifyLens(x2x) {
+  const lens = this.lens
+  if (void 0 !== lens)
+    this.parent.modify(modify(lens, x2x))
 }
 
-function view(...ls) {
-  if (process.env.NODE_ENV !== "production") {
-    if (ls.length !== 1)
-      warn(view, "In the next major version the `view` method will no longer take multiple arguments to compose as a lens.  Instead of `atom.view(...ls)` write `atom.view([...ls])`.")
+function view(lens) {
+  let atom = this
+
+  if (lens instanceof Observable) {
+    atom = combineWith(lens, atom, (lens, data) => get(atom.lens = lens, data))
+  } else {
+    atom = atom.map(get(lens)).skipDuplicates(identicalU)
+    atom.lens = lens
   }
-
-  const mapper = compose(...ls)
-
-  const atom = this.map(get(mapper)).skipDuplicates(acyclicEqualsU)
 
   atom.parent = this
-  atom.mapper = mapper
   atom.modify = modifyLens
   atom.get = getLens
   atom.set = set
-  atom.lens = process.env.NODE_ENV === "production" ? view : lens
   atom.view = view
-
   return atom
 }
 
@@ -47,7 +39,7 @@ function modifyRoot(x2x) { this.bus.push(x2x) }
 
 export default value => {
   const bus = Bus()
-  const atom = bus.scan(value, (v, fn) => atom.value = fn(v)).skipDuplicates(acyclicEqualsU)
+  const atom = bus.scan(value, (v, fn) => atom.value = fn(v)).skipDuplicates(identicalU)
 
   atom.subscribe(id)
 
@@ -56,7 +48,6 @@ export default value => {
   atom.modify = modifyRoot
   atom.get = getRoot
   atom.set = set
-  atom.lens = process.env.NODE_ENV === "production" ? view : lens
   atom.view = view
 
   return atom
