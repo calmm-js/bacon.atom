@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/calmm-js/bacon.atom#readme",
   "dependencies": {
-    "baconjs": "^0.7.85",
+    "baconjs": ">0.7 <2.0",
     "infestines": ">=0.2.0 <0.5.0",
     "partial.lenses": ">=2.2.0"
   },
