@@ -1,6 +1,6 @@
 {
   "name": "bacon.atom",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "A garbage collectable alternative to Bacon.Model",
   "module": "dist/bacon.atom.es.js",
   "main": "dist/bacon.atom.cjs.js",
