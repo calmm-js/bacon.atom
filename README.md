@@ -4,8 +4,10 @@
 [![](https://david-dm.org/calmm-js/bacon.atom.svg)](https://david-dm.org/calmm-js/bacon.atom)
 [![](https://david-dm.org/calmm-js/bacon.atom/dev-status.svg)](https://david-dm.org/calmm-js/bacon.atom?type=dev)
 
-A garbage collectable alternative to
-[Bacon.Model](https://github.com/baconjs/bacon.model).
+An atom is a holder for a mutable, reactive value, meaning that you can modify its value
+and observe changes to it. It's an extension to the Bacon.js [property](https://github.com/baconjs/bacon.js#property),
+which always has an initial value and allows value mutation using the `set` and `modify` methods. It also allows
+you to create linked "lensed atoms" that reflect a part of an Atom holding a complex value.
 
 ## Reference
 
