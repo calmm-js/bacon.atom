@@ -38,7 +38,7 @@ function getRoot() { return this.value }
 function modifyRoot(x2x) { this.bus.push(x2x) }
 
 export default value => {
-  const bus = Bus()
+  const bus = new Bus()
   const atom = bus.scan(value, (v, fn) => atom.value = fn(v)).skipDuplicates(identicalU)
 
   atom.subscribe(id)

@@ -46,7 +46,7 @@ function modifyRoot(x2x) {
 }
 
 var bacon_atom = (function (value) {
-  var bus = baconjs.Bus();
+  var bus = new baconjs.Bus();
   var atom = bus.scan(value, function (v, fn) {
     return atom.value = fn(v);
   }).skipDuplicates(infestines.identicalU);
